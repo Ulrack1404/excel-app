@@ -7,6 +7,7 @@ module.exports = {
             configFile: "./babel.config.json",
         },
         sourceType: "module",
+        ecmaVersion: 2022,
     },
     env: {
         browser: true,
@@ -27,5 +28,11 @@ module.exports = {
         ],
         "linebreak-style": ["error", "windows"],
         "eslintquote-props": ["off", "as-needed"],
+        "object-curly-spacing": ["error", "always"],
+        "require-jsdoc": "off",
+        "no-trailing-spaces": "off",
+        "space-before-blocks": "off",
+        "no-unused-vars": "off",
+        "operator-linebreak": "off",
     },
 };
