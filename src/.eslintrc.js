@@ -34,5 +34,6 @@ module.exports = {
         "space-before-blocks": "off",
         "no-unused-vars": "off",
         "operator-linebreak": "off",
+        "comma-dangle": "off",
     },
 };
