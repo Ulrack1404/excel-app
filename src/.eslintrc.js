@@ -4,15 +4,15 @@ module.exports = {
     // parser: "babel-eslint",
     parserOptions: {
         babelOptions: {
-            configFile: "./babel.config.json",
+            configFile: "./babel.config.json"
         },
         sourceType: "module",
-        ecmaVersion: 2022,
+        ecmaVersion: 2022
     },
     env: {
         browser: true,
         node: true,
-        es6: true,
+        es6: true
     },
     extends: "google",
     rules: {
@@ -23,8 +23,8 @@ module.exports = {
             "double",
             {
                 allowTemplateLiterals: true,
-                avoidEscape: true,
-            },
+                avoidEscape: true
+            }
         ],
         "linebreak-style": ["error", "windows"],
         "eslintquote-props": ["off", "as-needed"],
@@ -35,5 +35,6 @@ module.exports = {
         "no-unused-vars": "off",
         "operator-linebreak": "off",
         "comma-dangle": "off",
-    },
+        "space-before-function-paren": "off"
+    }
 };

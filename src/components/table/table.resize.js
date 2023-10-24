@@ -10,7 +10,7 @@ export function resizeHandler($root, event) {
 
     $resizer.css({
         opacity: 1,
-        [sideProp]: "-5000px",
+        [sideProp]: "-5000px"
     });
 
     document.onmousemove = (e) => {
@@ -32,7 +32,10 @@ export function resizeHandler($root, event) {
             $parent.css({ width: value + "px" });
             $root
                 .findAll(`[data-col="${$parent.data.col}"]`)
-                .forEach((el) => (el.style.width = value + "px"));
+                .forEach(
+                    (el) => ((el.style.width = value + "px"), console.log(el))
+                );
+            console.log("$root:", $root);
         } else {
             $parent.css({ height: value + "px" });
         }
