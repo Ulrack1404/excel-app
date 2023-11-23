@@ -4,19 +4,30 @@ const CODES = {
 };
 
 const DEFAULT_WIDTH = 120;
+const DEFAULT_HEIGHT = 24;
+
+function getWidth(state, index) {
+    return (state[index] || DEFAULT_WIDTH) + "px";
+}
+
+function getHeight(state, index) {
+    return (state[index] || DEFAULT_HEIGHT) + "px";
+}
 
 function toCell(state, row) {
     return function (_, col) {
+        const id = `${row}:${col}`;
         const width = getWidth(state.colState, col);
+        const data = state.dataState[id];
         return `
             <div class="cell" 
             contenteditable="true" 
             data-type="cell"
             data-col=${col}
             data-row=${row}
-            data-id="${row}:${col}"
+            data-id="${id}"
             style="width: ${width}"
-            ></div>
+            >${data || ""}</div>
             `;
     };
 }
@@ -35,15 +46,20 @@ function toColumn({ col, index, width }) {
 }
 
 // createRow - функция, которая создает структуру строчки
-function createRow(index, content) {
+function createRow(index, content, state) {
+    const height = getHeight(state, index);
     const resize = index
         ? '<div class="row-resize" data-resize="row"></div>'
         : "";
     return `
-    <div class="row" data-type="resizable"> 
+    <div 
+        class="row" 
+        data-type="resizable" 
+        data-row="${index}"
+        style="height: ${height}"
+    > 
         <div class="row-info">${index ? index : ""}
-            ${resize}
-        </div>
+        ${resize}</div>        
         <div class="row-data">${content}</div>
     </div>
     `;
@@ -51,10 +67,6 @@ function createRow(index, content) {
 
 function toChar(_, index) {
     return String.fromCharCode(CODES.A + index);
-}
-
-function getWidth(state, index) {
-    return (state[index] || DEFAULT_WIDTH) + "px";
 }
 
 function withWidthFrom(state) {
@@ -76,14 +88,15 @@ export function createTable(rowsCount = 35, state = {}) {
         .map(withWidthFrom(state))
         .map(toColumn)
         .join("");
-    rows.push(createRow(null, cols));
+
+    rows.push(createRow(null, cols, {}));
 
     for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)
             .fill("")
             .map(toCell(state, row))
             .join("");
-        rows.push(createRow(row + 1, cells));
+        rows.push(createRow(row + 1, cells, state.rowState));
     }
 
     return rows.join("");
