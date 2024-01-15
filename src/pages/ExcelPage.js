@@ -22,7 +22,6 @@ export class ExcelPage extends Page {
         const store = createStore(rootReducer, initialState);
 
         const stateListener = debounce((state) => {
-            console.log("App state:", state);
             storage(storageName(params), state);
         }, 300);
         store.subscribe(stateListener);
@@ -31,6 +30,7 @@ export class ExcelPage extends Page {
             components: [Header, Toolbar, Formula, Table],
             store
         });
+
         return this.excel.getRoot();
     }
 
