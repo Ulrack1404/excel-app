@@ -47,12 +47,20 @@ export function createToolbar(state) {
         },
         {
             icon: "format_underlined",
-            active: state["textDecoration"] === "underline",
+            active: state["textDecoration"].includes("underline"),
             value: {
-                textDecoration:
-                    state["textDecoration"] === "underline"
-                        ? "none"
-                        : "underline"
+                textDecoration: state["textDecoration"].includes("underline")
+                    ? state["textDecoration"].replace("underline", "").trim()
+                    : (state["textDecoration"] + " underline").trim()
+            }
+        },
+        {
+            icon: "format_strikethrough",
+            active: state["textDecoration"].includes("line-through"),
+            value: {
+                textDecoration: state["textDecoration"].includes("line-through")
+                    ? state["textDecoration"].replace("line-through", "").trim()
+                    : (state["textDecoration"] + " line-through").trim()
             }
         }
     ];
